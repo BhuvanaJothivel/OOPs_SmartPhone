@@ -261,7 +261,7 @@ describe('MobileCampus', () => {
       expect(mobileCampus.changeMobileAvailabilityNumber.length).toEqual(2);
     });
     
-    it('should find the remaining amount that you have after buying the smart phone', () => {
+    it('should find the remaining mobiles available', () => {
       let mobileType = 'android';
       mobileCampus.changeMobileAvailabilityNumber(500,mobileType);
       expect(mobileCampus.NoOfMobiles).toEqual(NoOfMobiles - 500 );
@@ -272,5 +272,14 @@ describe('MobileCampus', () => {
         expect(mobileCampus.NoOfIPhoneMobiles).toEqual(NoOfIPhoneMobiles - 500 );
       }
     });
+
+    it('should return "Available android mobiles are COUNT" after buying some mobiles', ()=>{
+      expect(mobileCampus.changeMobileAvailabilityNumber(500,'android')).toEqual(`Available android mobiles are ${mobileCampus.NoOfAndroidMobiles}`);
+    });
+
+    it('should return "Available iphone mobiles are COUNT" after buying some mobiles', ()=>{
+      expect(mobileCampus.changeMobileAvailabilityNumber(500,'iphone')).toEqual(`Available iphone mobiles are ${mobileCampus.NoOfIPhoneMobiles}`);
+    });
+
   });
 });

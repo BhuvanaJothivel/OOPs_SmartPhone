@@ -73,9 +73,12 @@ class MobileCampus{
         this.NoOfMobiles = this.NoOfMobiles - count;
         if(type === 'android'){
             this.NoOfAndroidMobiles = this.NoOfAndroidMobiles - count;
+            return 'Available android mobiles are '+this.NoOfAndroidMobiles;
+
         }
         if(type === 'iphone'){
             this.NoOfIPhoneMobiles = this.NoOfIPhoneMobiles - count;
+            return 'Available iphone mobiles are '+this.NoOfIPhoneMobiles;
         }
     }
 }
