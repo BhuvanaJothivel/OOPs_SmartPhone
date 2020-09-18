@@ -1,3 +1,4 @@
+console.log('hai');
 class SmartPhone {
     constructor(ram, batteryPower, price) {
         this.ram = ram;
@@ -24,7 +25,7 @@ class AndroidPhone extends SmartPhone {
     remainingAmount(priceIHave) {
         this.price = priceIHave - this.price;
         
-
+        console.log(this.price);
         if(this.price <=0){
             return 'Customer has no more amount';
         }
@@ -57,6 +58,24 @@ class IPhone extends SmartPhone {
 
         else{
             return "Customer can't able to buy a phone due to insufficient amount";
+        }
+    }
+}
+
+class MobileCampus{
+    constructor(NoOfMobiles, NoOfAndroidMobiles, NoOfIPhoneMobiles){
+        this.NoOfMobiles = NoOfMobiles;
+        this.NoOfAndroidMobiles = NoOfAndroidMobiles;
+        this.NoOfIPhoneMobiles = NoOfIPhoneMobiles;
+    }
+
+    changeMobileAvailabilityNumber(count,type){
+        this.NoOfMobiles = this.NoOfMobiles - count;
+        if(type === 'android'){
+            this.NoOfAndroidMobiles = this.NoOfAndroidMobiles - count;
+        }
+        if(type === 'iphone'){
+            this.NoOfIPhoneMobiles = this.NoOfIPhoneMobiles - count;
         }
     }
 }

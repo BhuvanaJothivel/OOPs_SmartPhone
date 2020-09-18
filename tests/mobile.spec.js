@@ -128,12 +128,12 @@ describe('AndroidPhone', () => {
     });
 
     it('should return "Customer has remaining Rs.AMOUNT after buying the android phone", if customer has more amount than actual price of the phone', () => {
-      expect(androidPhone.remainingAmount(25500)).toEqual(`Customer has remaining Rs.1500 after buying the android phone`);
-      expect(androidPhone.remainingAmount(25000)).toEqual(`Customer has remaining Rs.1000 after buying the android phone`);
+      expect(androidPhone.remainingAmount(25500)).toEqual(`Customer has remaining Rs.${androidPhone.price} after buying the android phone`);
+      expect(androidPhone.remainingAmount(25000)).toEqual(`Customer has remaining Rs.${androidPhone.price} after buying the android phone`);
     });
     
     it('should return "Customer has no more amount", if customer has equal amount as same as actual price of the phone', () => {
-      expect(androidPhone.remainingAmount(24000)).toEqual(`Customer has no more amount`);
+      expect(androidPhone.remainingAmount(24000)).toEqual('Customer has no more amount');
     });
   });
 
@@ -206,17 +206,71 @@ describe('IPhone', () => {
     });
 
     it('should return "Customer has remaining Rs.AMOUNT after buying the iphone", if customer has more amount than actual price of the phone', () => {
-      expect(iphone.remainingAmount(65500)).toEqual(`Customer has remaining Rs.1500 after buying the iphone`);
-      expect(iphone.remainingAmount(65000)).toEqual(`Customer has remaining Rs.1000 after buying the iphone`);
+      expect(iphone.remainingAmount(65500)).toEqual(`Customer has remaining Rs.${iphone.price} after buying the android phone`);
+      expect(iphone.remainingAmount(65000)).toEqual(`Customer has remaining Rs.${iphone.price} after buying the android phone`);
     });
     
     it('should return "Customer has no more amount", if customer has equal amount as same as actual price of the phone', () => {
-      expect(iphone.remainingAmount(64000)).toEqual(`Customer has no more amount`);
+      expect(iphone.remainingAmount(64000)).toEqual('Customer has no more amount');
     });
 
     it('should return "Customer can\'t able to buy the phone", if customer has less amount than actual price of the phone', () => {
-      expect(iphone.remainingAmount(24000)).toEqual(`Customer can't able to buy a phone due to insufficient amount`);
+      expect(iphone.remainingAmount(24000)).toEqual("Customer can't able to buy a phone due to insufficient amount");
     });
   });
 });
 
+describe('MobileCampus', () => {
+  let mobileCampus;
+  let NoOfMobiles = 10000;
+  let NoOfAndroidMobiles = 6500;
+  let NoOfIPhoneMobiles = 3500;
+
+  beforeEach(() => {
+    mobileCampus = new MobileCampus(NoOfMobiles, NoOfAndroidMobiles, NoOfIPhoneMobiles);
+  });
+
+  describe('class', () => {
+
+    it('should receive 3 arguments (NoOfMobiles, NoOfAndroidMobiles & NoOfIPhoneMobiles)', () => {
+      expect(MobileCampus.length).toEqual(3);
+    });
+    
+    it('should receive the NoOfMobiles property as its 1st argument', () => {
+      expect(mobileCampus.NoOfMobiles).toEqual(NoOfMobiles);
+    });
+    
+    it('should receive the NoOfAndroidMobiles property as its 2nd argument', () => {
+      expect(mobileCampus.NoOfAndroidMobiles).toEqual(NoOfAndroidMobiles);
+    });
+
+    it('should receive the NoOfIPhoneMobiles property as its 3rd argument', () => {
+      expect(mobileCampus.NoOfIPhoneMobiles).toEqual(NoOfIPhoneMobiles);
+    });
+
+    
+
+  });
+
+  describe('changeMobileAvailabilityNumber() method', () => {
+    it('should be a function', () => {
+      expect(typeof mobileCampus.changeMobileAvailabilityNumber).toBe('function');
+    });
+    
+    it('should receive 2 arguments', () => {
+      expect(mobileCampus.changeMobileAvailabilityNumber.length).toEqual(2);
+    });
+    
+    it('should find the remaining amount that you have after buying the smart phone', () => {
+      let mobileType = 'android';
+      mobileCampus.changeMobileAvailabilityNumber(500,mobileType);
+      expect(mobileCampus.NoOfMobiles).toEqual(NoOfMobiles - 500 );
+      if(mobileType === 'android'){
+        expect(mobileCampus.NoOfAndroidMobiles).toEqual(NoOfAndroidMobiles - 500 );
+      }
+      if(mobileType === 'iphone'){
+        expect(mobileCampus.NoOfIPhoneMobiles).toEqual(NoOfIPhoneMobiles - 500 );
+      }
+    });
+  });
+});
